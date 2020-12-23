@@ -39,12 +39,17 @@ class Quiz extends Component {
 
     if (question.rightAnswerId === answerId) {
 
+      this.setState({
+        answerState: {[answerId]: 'success'}
+      })
+
       const timeout = window.setTimeout(() => {
         if (this.isQuizFinished()) {
           console.log('finished')
         } else {
           this.setState({
-            activeQuestion: this.state.activeQuestion + 1
+            activeQuestion: this.state.activeQuestion + 1,
+            answerState: null,
           })
         }
 
@@ -53,6 +58,9 @@ class Quiz extends Component {
 
       
     } else {
+      this.setState({
+        answerState: {[answerId]: 'error'}
+      })
 
     }    
   }
@@ -74,7 +82,8 @@ class Quiz extends Component {
             question={this.state.quiz[this.state.activeQuestion].question}
             onAnswerClick={this.onAnswerClickHandler}
             quizLength={this.state.quiz.length}
-            answerNumber={this.state.activeQuestion + 1}       
+            answerNumber={this.state.activeQuestion + 1}
+            state={this.state.answerState}      
           />
         </div>
       </div>
